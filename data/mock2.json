@@ -1,0 +1,58 @@
+{
+  "ID": "6100311",
+  "Username": "Kraisit.ch",
+  "Password": "Baac@123",
+  "FullName": "Kraisit Chedcharoenrut",
+  "FriendList": [
+    {
+      "UserID": "6100322",
+      "Status": "Friend"
+    },
+    {
+      "UserID": "6100333",
+      "Status": "RequestedFriend"
+    },
+    {
+      "UserID": "6100344",
+      "Status": "UnknowFriend"
+    },
+    {
+      "UserID": "6100355",
+      "Status": "UnknowFriend"
+    },
+    {
+      "UserID": "6100366",
+      "Status": "Friend"
+    }
+  ],
+  "Post": [
+    {
+      "Content": "Hi, ABCSADASDADAS",
+      "Images": "Base64",
+      "CommentList": [
+        {
+          "UserID": "6100322",
+          "Messages": "OK Test Add Comment"
+        },
+        {
+          "UserID": "6100366",
+          "Messages": "OK Test Add Comment 2222"
+        }
+      ]
+    },
+    {
+      "Content": "Hi, ZZXXXXXXXZZZZZ",
+      "Images": "Base64",
+      "CommentList": [
+        {
+          "UserID": "6100366",
+          "Messages": "OK Test Add Comment ZZZZZ"
+        },
+        {
+          "UserID": "6100366",
+          "Messages": "OK Test Add Comment 33333"
+        }
+      ]
+    }
+  ]
+}
