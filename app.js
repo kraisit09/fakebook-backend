@@ -7,7 +7,7 @@ const fakebookRoute = require('./routes/fakebookRoute')
 const { logHandler } = require('./middleware/logHandler')
 const { errorHandler } = require('./middleware/errorHandler')
 
-const cors = require(cors)
+const cors = require('cors')
 
 connectDB()
 
