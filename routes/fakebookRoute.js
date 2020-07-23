@@ -13,6 +13,7 @@ router.post('/loginUser', systemController.loginUser)
 router.post('/changePassword', systemController.changePassword)
 
 router.post('/getFeed', fakebookController.getFeed)
+router.post('/createPost', fakebookController.createPost)
 
 // router.post('/', [
 //     body('name').not().isEmpty().withMessage('Field name is required'),
