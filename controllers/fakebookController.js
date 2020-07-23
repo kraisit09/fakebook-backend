@@ -1,51 +1,27 @@
-const { validationResult } = require('express-validator')
-const jwt = require('jsonwebtoken')
-const config = require('../config/index')
+const _baseCore = require('../utils/baseCore')
 const CLT_Fakebook = require('../models/fakebookModel')
 
-async function registerUser(req, res, next) {
-  try {
-    const { username, password, fullname } = req.body
+async function getFeed(req, res, next) {
+  let userId = '5f17e0500d338f1e441c3bb8'
+  let arrFeed = []
 
-    // Validation Req
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-      const error = new Error('Please check data')
-      error.statusCode = 422
-      error.validation = errors.array()
-      throw error
-    }
-
-    // Check IsFound Username
-    const existUsername = await CLT_Fakebook.findOne({ Username: username })
-    if (existUsername) {
-      const error = new Error('Username already exits')
-      error.statusCode = 400
-      throw error
-    }
-
-    // Add ObjUser
-    let objUser = new CLT_Fakebook()
-    objUser.Username = username
-    objUser.Password = await objUser.encryptPassword(password)
-    objUser.FullName = fullname
-    objUser.ImageProfile = ''
-    objUser.FriendList = []
-    objUser.Posts = []
-
-    await objUser.save()
-
-    res.status(201).json({
-      data: objUser,
-      success: true,
-    })
-  } catch (err) {
-    next(err)
+  // Get owner post
+  let objUser = await CLT_Fakebook.findOne({ _id: userId })
+  if (objUser.Posts.length > 0) {
+    objUser.Posts.map((s) => arrFeed.push(s))
   }
+
+  // Get friend post
+  let lsFriendId = objUser.FriendList.filter((s) => s.Status === 'friend').map((s) => s.UserId)
+  for (const id of lsFriendId) {
+    let objFriend = await CLT_Fakebook.findOne({ _id: id })
+
+    if (objFriend.Posts.length > 0) {
+      objFriend.Posts.map((s) => arrFeed.push(s))
+    }
+  }
+
+  _baseCore.resMsg(res, 200, 'success', 'Load feed data success!', { postList: arrFeed })
 }
 
-async function changePassword(req, res, next) {}
-
-async function loginUser(req, res, next) {}
-
-module.exports = { registerUser }
+module.exports = { getFeed }

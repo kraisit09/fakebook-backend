@@ -5,12 +5,12 @@ const Schema = mongoose.Schema
 const fakebookSchema = new Schema(
   {
     Username: { type: String, required: true, trim: true },
-    Password: { type: String, trim: true },
-    FullName: { type: String, trim: true },
+    Password: { type: String, required: true, trim: true },
+    FullName: { type: String, required: true, trim: true },
     ImageProfile: { type: String },
     FriendList: [
       {
-        UserID: { type: String },
+        UserId: { type: String },
         Status: { type: String },
       },
     ],
@@ -20,10 +20,12 @@ const fakebookSchema = new Schema(
         Images: { type: String },
         CommentList: [
           {
-            UserID: { type: String },
+            UserId: { type: String },
             Messages: { type: String },
+            CreatedDate: { type: Date },
           },
         ],
+        CreatedDate: { type: Date },
       },
     ],
     CreatedDate: { type: Date, default: Date.now },
@@ -40,10 +42,8 @@ fakebookSchema.methods.encryptPassword = async (password) => {
   return hashPassword
 }
 
-fakebookSchema.methods.comparePassword = async (password) => {
-  console.log(password)
-  console.log(this.password)
-  const isValid = await bcrypt.compare(password, this.password)
+fakebookSchema.methods.comparePassword = async function (password) {
+  const isValid = await bcrypt.compare(password, this.Password)
   return isValid
 }
 

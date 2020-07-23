@@ -1,5 +1,6 @@
 const express = require('express')
 const { body } = require('express-validator')
+const systemController = require('../controllers/systemController.js')
 const fakebookController = require('../controllers/fakebookController.js')
 
 const router = express.Router()
@@ -7,7 +8,11 @@ const router = express.Router()
 router.get('/ao', (req, res) => {
   res.send('OK')
 })
-router.post('/signup', fakebookController.registerUser)
+router.post('/signup', systemController.registerUser)
+router.post('/loginUser', systemController.loginUser)
+router.post('/changePassword', systemController.changePassword)
+
+router.post('/getFeed', fakebookController.getFeed)
 
 // router.post('/', [
 //     body('name').not().isEmpty().withMessage('Field name is required'),
