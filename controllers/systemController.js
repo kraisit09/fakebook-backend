@@ -11,6 +11,7 @@ async function registerUser(req, res, next) {
     const existUsername = await CLT_Fakebook.findOne({ Username: username })
     if (existUsername) {
       _baseCore.resMsg(res, 400, 'fail', 'Username already exits', {})
+      return
     }
 
     // Add ObjUser
@@ -38,6 +39,7 @@ async function loginUser(req, res, next) {
     const isMatch = await currUser.comparePassword(password, currUser)
     if (!currUser || !isMatch) {
       _baseCore.resMsg(res, 400, 'fail', 'username or password not match', {})
+      return
     }
 
     // Create token
@@ -74,6 +76,7 @@ async function changePassword(req, res, next) {
     const isMatch = await currUser.comparePassword(oldPassword)
     if (!isMatch) {
       _baseCore.resMsg(res, 400, 'fail', 'Incorrect old password', {})
+      return
     }
 
     // Change New Password
